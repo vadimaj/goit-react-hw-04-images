@@ -23,26 +23,4 @@ const FetchPictures = async (searchQuery, page) => {
   }
 };
 
-//   incrementPage() {
-//     this.page += 1;
-//   }
-//   resetPage() {
-//     this.page = 1;
-//   }
-
-//   isEndOfCollection() {
-//     return Math.ceil(this.totalHits / PICTURES_PER_PAGE) === this.page - 1;
-//   }
-
-//   get query() {
-//     return this.searchQuery;
-//   }
-//   set query(newSearchQuery) {
-//     this.searchQuery = newSearchQuery;
-//   }
-// }
-
-// this.totalHits = response.data.totalHits;
-//       this.incrementPage();
-
 export { FetchPictures, PICTURES_PER_PAGE };

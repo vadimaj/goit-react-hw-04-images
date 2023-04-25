@@ -58,16 +58,15 @@ export default class App extends Component {
   }
 
   render() {
-    const { pending } = this.state;
+    const { pending, gallery } = this.state;
     return (
       <div className={css.app}>
         <Searchbar onSubmit={this.formSubmitHandler} />
-        <ImageGallery gallery={this.state.gallery} />
-        {this.state.gallery.length && !this.isEndOfCollection() && (
+        <ImageGallery gallery={gallery} />
+        {!!gallery.length && !this.isEndOfCollection() && !pending && (
           <Button onLoadMore={this.handlePageNumberIncrement} />
         )}
         {pending && <Loader />}
-
         <ToastContainer />
       </div>
     );
