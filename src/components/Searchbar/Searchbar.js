@@ -1,56 +1,53 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactComponent as SearchIcon } from '../icons/search-icon.svg';
 
-class Searchbar extends Component {
-  state = {
-    query: '',
+const Searchbar = props => {
+  const { onSubmit } = props;
+  const [query, setQuery] = useState('');
+
+  const handleInputChange = e => {
+    setQuery(e.currentTarget.value);
   };
 
-  handleInputChange = e => {
-    this.setState({ [e.currentTarget.name]: e.currentTarget.value });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    if (this.state.query.trim() === '') {
+    if (query.trim() === '') {
       return toast.error('Please enter search query');
     }
-    this.props.onSubmit(this.state.query);
-    this.reset();
+    onSubmit(query);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ query: '' });
+  const reset = () => {
+    setQuery('');
   };
 
-  render() {
-    return (
-      <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={css['SearchForm-button']}>
-            <span className={css['SearchForm-button-label']}>Search</span>
-            <SearchIcon width="25" height="25" />
-          </button>
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={css['SearchForm-button']}>
+          <span className={css['SearchForm-button-label']}>Search</span>
+          <SearchIcon width="25" height="25" />
+        </button>
 
-          <input
-            className={css['SearchForm-input']}
-            type="text"
-            name="query"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={this.state.query}
-            onChange={this.handleInputChange}
-          />
-        </form>
-      </header>
-    );
-  }
-}
+        <input
+          className={css['SearchForm-input']}
+          type="text"
+          name="query"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          value={query}
+          onChange={handleInputChange}
+        />
+      </form>
+    </header>
+  );
+};
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,

@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+
 const BASIC_URL = 'https://pixabay.com/api';
 const KEY = '34291894-c5b60193cb7b58e4e154e577d';
 const PICTURES_PER_PAGE = 12;
@@ -14,13 +15,19 @@ const FetchPictures = async (searchQuery, page) => {
     orientation: 'horizontal',
     safesearch: true,
   });
-  try {
-    const response = await axios.get(`${BASIC_URL}/?${options}`);
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
+  const response = await fetch(`${BASIC_URL}/?${options}`);
+  const data = await response.json();
+
+  return data;
+
+  //   try {
+  //     const response = await axios.get(`${BASIC_URL}/?${options}`);
+  //     console.log(response);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+};
 export { FetchPictures, PICTURES_PER_PAGE };
